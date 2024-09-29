@@ -1,0 +1,22 @@
+.wrapper {
+    position: fixed;
+    z-index: 10;
+    top: 0;
+    right: 0;
+    left: 0;
+    margin: 0 80px;
+    display: flex;
+    align-items: center;
+    height: var(--header-height);
+    justify-content: space-between;
+    backdrop-filter: blur(10px);
+}
+
+.logo-img {
+    height: calc(var(--header-height) * 0.9);
+    width: calc(var(--header-height) * 0.9);
+}
+
+.header-action {
+    display: flex;
+}

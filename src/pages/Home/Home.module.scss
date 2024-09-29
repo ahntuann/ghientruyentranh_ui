@@ -1,0 +1,25 @@
+.wrapper {
+    height: 3000px;
+    overflow: hidden;
+}
+
+.background {
+    z-index: 1;
+    position: relative;
+    background-image: url('../../components/img/background.jpg');
+    background-size: cover;
+    width: 100vw;
+    height: 100vh;
+}
+
+.manga-info {
+    background-color: rgba($color: #3f3838, $alpha: 0.8);
+    backdrop-filter: blur(10px);
+    padding: 20px;
+    width: 400px;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-30%);
+    left: var(--margin-left);
+    border-radius: 20px;
+}

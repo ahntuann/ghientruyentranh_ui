@@ -1,0 +1,40 @@
+.wrapper {
+    display: flex;
+    width: 100%;
+    cursor: pointer;
+    margin: 10px 0;
+
+    &:hover {
+        background-color: rgba($color: #3f3838, $alpha: 0.8);
+    }
+}
+
+.manga-detail {
+    margin-left: 10px;
+}
+
+.manga-name {
+    font-weight: 600;
+}
+
+.manga-chap {
+    font-size: 1.2rem;
+}
+
+.manga-name,
+.manga-type {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    max-width: 100%;
+}
+
+.manga-type {
+    font-style: italic;
+    font-size: 1.4rem;
+    margin-top: 3px;
+}
+
+.manga-img img {
+    width: 60px;
+    height: 60px;
+}

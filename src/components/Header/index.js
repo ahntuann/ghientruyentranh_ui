@@ -13,6 +13,7 @@ function Header() {
                 <svg
                     aria-label="Threads"
                     fill="var(--barcelona-primary-icon)"
+                    className={cs('logo-img')}
                     height="100%"
                     role="img"
                     viewBox="0 0 192 192"
@@ -27,8 +28,10 @@ function Header() {
 
             <Search />
 
-            <Button className={'search-btn'} solid={true} title={'Đăng ký'} dark={true} />
-            <Button className={'search-btn'} solid={true} title={'Đăng nhập'} light={true} />
+            <div className={cs('header-action')}>
+                <Button className={'search-btn'} solid={true} title={'Đăng ký'} dark={true} />
+                <Button className={'search-btn'} title={'Đăng nhập'} light={true} />
+            </div>
         </div>
     );
 }

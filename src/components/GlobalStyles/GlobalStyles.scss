@@ -2,6 +2,12 @@
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&family=Roboto&display=swap');
 
 :root {
+    --header-height: 80px;
+    --text-color: #fff;
+    --background-color: #000;
+    --light-color: #e4cfcf;
+    --border-color: #383839;
+    --margin-left: 80px;
 }
 
 * {
@@ -19,4 +25,5 @@ body {
     font-size: 1.6rem;
     line-height: 1.5;
     text-rendering: optimizeSpeed;
+    overflow-x: overlay;
 }

@@ -1,0 +1,29 @@
+.search-manga {
+    padding: 15px 20px;
+    outline: none;
+    background-color: rgba($color: #3f3838, $alpha: 0.5);
+    backdrop-filter: blur(10px);
+    border: none;
+    border-radius: 30px;
+    color: #fff;
+    position: relative;
+    font-size: 1.5rem;
+}
+
+.search-manga,
+.search-result {
+    width: 330px;
+}
+
+.search-result {
+    max-height: 100px;
+}
+
+.search-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateX(-160%) translateY(-50%);
+    font-size: 1.9rem;
+    color: #f4e5e5;
+    cursor: pointer;
+}

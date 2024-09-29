@@ -1,0 +1,27 @@
+.manga-type,
+.manga-name {
+    font-size: 2rem;
+    font-weight: bold;
+    color: var(--text-color);
+    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+}
+
+.manga-type {
+    font-size: 1.5rem;
+    font-style: italic;
+}
+
+.manga-des {
+    color: var(--text-color);
+    margin-top: 20px;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.manga-action {
+    display: flex;
+    margin-top: 40px;
+}

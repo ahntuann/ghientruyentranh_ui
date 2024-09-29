@@ -8,8 +8,11 @@ const cs = classNames.bind(style);
 function DefaultLayout({ children }) {
     return (
         <div className={cs('wrapper')}>
-            <Header />
-            {children}
+            <div className={cs('container')}>
+                <Header />
+
+                <div className={cs('content')}>{children}</div>
+            </div>
         </div>
     );
 }
