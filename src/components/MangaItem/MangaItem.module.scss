@@ -1,11 +1,26 @@
-.wrapper {
+.manga-items {
     display: flex;
     justify-content: space-between;
 }
 
 .manga-item {
     width: 150px;
-    transition: transform 0.5s ease-in-out;
+    transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+    opacity: 1;
+
+    &:hover {
+        opacity: 1;
+        cursor: pointer;
+        transform: scale(1.05);
+    }
+}
+
+.wrapper:hover .manga-item {
+    opacity: 0.3;
+}
+
+.wrapper .manga-item:hover {
+    opacity: 1;
 }
 
 .manga-img img {
@@ -16,4 +31,9 @@
 .manga-name {
     color: var(--text-color);
     max-width: 80%;
+    display: -webkit-box;
+    -webkit-line-clamp: 3; /* Số dòng tối đa là 3 */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }

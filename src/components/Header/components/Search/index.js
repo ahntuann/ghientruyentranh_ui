@@ -25,10 +25,10 @@ function Search() {
         }
 
         async function fetchData() {
-            const res = await fetch(`https://dummyjson.com/users/search?q=${debounce}`);
-            const users = await res.json();
+            const res = await fetch(`http://localhost:8080/testmaven/mangas?name=${debounce}&author=${debounce}`);
+            const manga = await res.json();
 
-            setSearchResult(users.users);
+            setSearchResult(manga);
         }
 
         fetchData();

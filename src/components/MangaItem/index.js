@@ -1,22 +1,46 @@
 import classNames from 'classnames/bind';
 
 import style from './MangaItem.module.scss';
+import { MangaItemModal } from '../Modal';
+import { useEffect, useRef, useState } from 'react';
 
 const cs = classNames.bind(style);
 
 function MangaItem({ displayMangas }) {
+    const [mangaModal, setMangaModal] = useState(() => null);
+    const [displayModal, setDisplayModal] = useState(() => false);
+
+    function toggleDisplaModal() {
+        setDisplayModal(!displayModal);
+    }
+
+    const toggleRef = useRef();
+
+    useEffect(() => {
+        toggleRef.current = toggleDisplaModal;
+    }, [toggleDisplaModal]);
+
     return (
         <div className={cs('wrapper')}>
-            {displayMangas.map((manga, index) => (
-                <div className={cs('manga-item')} key={index}>
-                    <div className={cs('manga-img')}>
-                        <img src={manga?.images?.webp?.image_url} alt="" />
+            <div className={cs('manga-items')}>
+                {displayMangas.map((manga, index) => (
+                    <div
+                        onClick={() => {
+                            toggleDisplaModal();
+                            setMangaModal(manga);
+                        }}
+                        className={cs('manga-item')}
+                        key={index}
+                    >
+                        <div className={cs('manga-img')}>
+                            <img src={manga?.coverImageURL} alt="" />
+                        </div>
+                        <div className={cs('manga-name')}>{manga.title || 'Unknown Title'}</div>
                     </div>
-                    <div className={cs('manga-name')}>
-                        {manga?.titles?.find((title) => title?.type === 'Default')?.title || 'Unknown Title'}
-                    </div>
-                </div>
-            ))}
+                ))}
+            </div>
+
+            <MangaItemModal display={displayModal} manga={mangaModal} toogleModal={toggleRef} />
         </div>
     );
 }

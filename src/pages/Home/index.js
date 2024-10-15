@@ -14,10 +14,10 @@ function Home() {
 
     useEffect(() => {
         async function fetchManga() {
-            const res = await fetch('https://api.jikan.moe/v4/anime');
+            const res = await fetch('http://localhost:8080/testmaven/mangas');
             const manga = await res.json();
 
-            setMangas(manga.data);
+            setMangas(manga);
         }
 
         fetchManga();
