@@ -3,9 +3,9 @@ import style from './SearchMangaItem.module.scss';
 
 const cs = classNames.bind(style);
 
-function SearchMangaItem({ manga }) {
+function SearchMangaItem({ manga, onclick }) {
     return (
-        <div className={cs('wrapper')}>
+        <div className={cs('wrapper')} onClick={() => onclick.current(manga)}>
             <div className={cs('manga-img')}>
                 <img src={manga.coverImageURL} alt={cs('manga-img')} />
             </div>

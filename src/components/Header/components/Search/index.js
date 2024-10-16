@@ -4,10 +4,11 @@ import HeadlessTippy from '@tippyjs/react/headless';
 
 import style from './Search.module.scss';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import useDebounce from '~/hooks/MyDebounce';
 import { Wrapper as PopperWrapper } from '~/components/Popper';
 import SearchMangaItem from '~/components/SearchMangaItem';
+import { MangaItemModal } from '~/components/Modal';
 
 const cs = classNames.bind(style);
 
@@ -15,8 +16,21 @@ function Search() {
     const [searchValue, setSearchValue] = useState(() => '');
     const [searchResult, setSearchResult] = useState([]);
     const [showResult, setShowResult] = useState(true);
+    const [showModal, setShowModal] = useState(false);
+    const [mangaModal, setMangaModal] = useState(null);
 
     const debounce = useDebounce(searchValue, 800);
+
+    const toogleModal = useCallback((mangaModal) => {
+        setShowModal((prev) => !prev);
+        setMangaModal(mangaModal);
+    }, []);
+
+    const toggleRef = useRef();
+
+    useEffect(() => {
+        toggleRef.current = toogleModal;
+    }, [toogleModal]);
 
     useEffect(() => {
         if (!debounce.trim()) {
@@ -46,7 +60,7 @@ function Search() {
                 <div className={cs('search-result')} {...attrs}>
                     <PopperWrapper>
                         {searchResult.map((search, index) => (
-                            <SearchMangaItem key={index} manga={search} />
+                            <SearchMangaItem key={index} manga={search} onclick={toggleRef} />
                         ))}
                     </PopperWrapper>
                 </div>
@@ -63,6 +77,8 @@ function Search() {
                     onFocus={(e) => setShowResult(true)}
                 />
                 <FontAwesomeIcon className={cs('search-btn')} icon={faMagnifyingGlass} />
+
+                <MangaItemModal toogleModal={toggleRef} manga={mangaModal} display={showModal} />
             </div>
         </HeadlessTippy>
     );
