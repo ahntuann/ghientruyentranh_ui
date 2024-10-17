@@ -1,2 +1,2 @@
 export { default as Home } from './Home';
-export { default as MangaDetail } from './MangaDetail';
+export { default as Reading } from './Reading';

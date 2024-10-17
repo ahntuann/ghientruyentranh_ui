@@ -1,5 +1,7 @@
 import DefaultLayout from '~/Layouts/DefaultLayout';
-import { Home, MangaDetail } from '~/pages';
+import ReadingLayout from '~/Layouts/ReadingLayout';
+import { Home } from '~/pages';
+import Reading from '~/pages/Reading';
 
 const routes = [
     {
@@ -8,9 +10,9 @@ const routes = [
         layout: DefaultLayout,
     },
     {
-        component: MangaDetail,
-        path: '/manga-detail',
-        layout: DefaultLayout,
+        component: Reading,
+        path: '/doctruyen',
+        layout: ReadingLayout,
     },
 ];
 

@@ -149,6 +149,9 @@
 .chapter-item {
     padding: 10px 20px;
     cursor: pointer;
+    display: block;
+    text-decoration: none;
+    color: var(--text-color);
 
     &:hover {
         background-color: #242424;

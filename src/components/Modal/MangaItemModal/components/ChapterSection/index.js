@@ -2,6 +2,7 @@ import classNames from 'classnames/bind';
 import style from '../../MangaItemModal.module.scss';
 import { useEffect, useRef, useState } from 'react';
 import Button from '~/components/Button';
+import { Link } from 'react-router-dom';
 
 const cs = classNames.bind(style);
 
@@ -47,17 +48,17 @@ function ChapterSection({ chapterList, isModalOpen }) {
             <div className={cs('chapter-list')}>
                 {firstList.length > 0 &&
                     firstList.map((chapter, index) => (
-                        <div key={index} className={cs('chapter-item')}>
+                        <Link to={`/doctruyen?id=${chapter.chapterId}`} key={index} className={cs('chapter-item')}>
                             Chương {chapter?.chapterNumber}
-                        </div>
+                        </Link>
                     ))}
 
                 {secondList.length > 0 &&
                     showSecondList &&
                     secondList.map((chapter, index) => (
-                        <div key={index} className={cs('chapter-item')}>
+                        <Link to={`/doctruyen?id=${chapter.chapterId}`} key={index} className={cs('chapter-item')}>
                             Chương {chapter?.chapterNumber}
-                        </div>
+                        </Link>
                     ))}
             </div>
 

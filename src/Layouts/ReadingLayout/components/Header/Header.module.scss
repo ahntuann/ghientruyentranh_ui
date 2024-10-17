@@ -1,0 +1,51 @@
+.wrapper {
+    width: 100%;
+    height: var(--header-footer-reading-height);
+    background-color: rgba(42, 38, 38, 0.5);
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    color: var(--text-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem;
+    z-index: 1000;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+    backdrop-filter: blur(10px);
+}
+
+.wrapper.hidden {
+    transform: translateY(-100%);
+    opacity: 0;
+}
+
+.wrapper.visible {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.manga-info {
+    display: flex;
+}
+
+.manga-name {
+    max-width: 300px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.manga-name,
+.slicer {
+    margin-right: 30px;
+}
+
+.manga-like {
+    position: absolute;
+    top: calc(var(--header-footer-reading-height) / 2);
+    transform: translateY(-50%);
+    right: 20px;
+    cursor: pointer;
+}
