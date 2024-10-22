@@ -2,8 +2,10 @@ import classNames from 'classnames/bind';
 import style from './ReadingLayout.module.scss';
 import Header from './components/Header';
 import Footer from './components/Footer';
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { Reading } from '~/pages';
+import { useLocation } from 'react-router-dom';
+import { MangaItemModal } from '~/components/Modal';
 
 const cs = classNames.bind(style);
 
@@ -12,8 +14,62 @@ function ReadingLayout() {
     const [offset, setOffset] = useState(0);
     const [isFetching, setIsFetching] = useState(false);
     const [isEnding, setIsEnding] = useState(false);
+    const [chapterNumber, setChapterNumber] = useState(null);
+    const [manga, setManga] = useState(null);
+    const [chapterList, setChapterList] = useState([]);
+    const [limit] = useState(10);
+    const [displayModal, setDisplayModal] = useState(false);
 
-    const limit = 10;
+    const location = useLocation();
+    const params = new URLSearchParams(location.search);
+    const mangaID = params.get('mangaId');
+    const id = params.get('id');
+
+    useEffect(() => {
+        console.log('alo1');
+        async function fetchChapter() {
+            const res = await fetch(`http://localhost:8080/testmaven/chapters?id=${id}`);
+            const chapterNumber = await res.json();
+
+            setChapterNumber(chapterNumber);
+        }
+
+        fetchChapter();
+    }, [id]);
+
+    useEffect(() => {
+        console.log('alo2');
+        async function fetchManga() {
+            const res = await fetch(`http://localhost:8080/testmaven/mangas?id=${mangaID}`);
+            const manga = await res.json();
+
+            setManga(manga);
+        }
+
+        fetchManga();
+    }, [mangaID]);
+
+    useEffect(() => {
+        console.log('alo3');
+        async function fetchManga() {
+            const res = await fetch(`http://localhost:8080/testmaven/mangas?id=${mangaID}&chapters=true`);
+            const chapterList = await res.json();
+
+            setChapterList(chapterList);
+        }
+
+        fetchManga();
+    }, [mangaID]);
+
+    useEffect(() => {
+        console.log('alo4');
+        setOffset(0);
+        setIsEnding((prev) => false);
+        setIsFetching((prev) => false);
+
+        // Cuộn trang lên đầu khi đổi chapter
+        window.scrollTo(0, 0);
+    }, [location.search]);
 
     const toggleFetching = useCallback(() => {
         setIsFetching((prev) => !prev);
@@ -30,7 +86,6 @@ function ReadingLayout() {
             const { scrollTop, scrollHeight, clientHeight } = e.target;
 
             if (!isFetching && !isEnding && scrollTop + clientHeight >= 0.7 * scrollHeight) {
-                toggleFetching();
                 setOffset((prev) => prev + limit);
             }
         },
@@ -41,29 +96,64 @@ function ReadingLayout() {
         setShowHeadFoot(true);
     }, []);
 
+    const toggleModal = useCallback(() => {
+        setDisplayModal((prev) => !prev);
+    }, []);
+
+    const toggleRef = useRef();
+
+    toggleRef.current = toggleModal;
+
     return (
         <div className={cs('wrapper')} onScroll={handlScroll} onClick={handlClick}>
-            {showHeadFoot ? <Header classList={cs({ visible: true })} /> : <Header classList={cs({ hidden: true })} />}
-
-            <div className={cs('content')}>
-                {offset !== null ? (
-                    <Reading
-                        offsetReading={offset}
-                        limit={limit}
-                        toggleFetching={toggleFetching}
-                        toggleEnding={toggleEnding}
+            {chapterNumber !== null && manga !== null ? (
+                showHeadFoot ? (
+                    <Header
+                        toggleModal={toggleRef}
+                        chapter={chapterNumber}
+                        manga={manga}
+                        classList={cs({ visible: true })}
                     />
                 ) : (
-                    <Reading
-                        offsetReading={0}
-                        limit={limit}
-                        toggleFetching={toggleFetching}
-                        toggleEnding={toggleEnding}
+                    <Header
+                        toggleModal={toggleRef}
+                        chapter={chapterNumber}
+                        manga={manga}
+                        classList={cs({ hidden: true })}
                     />
-                )}
+                )
+            ) : null}
+
+            <div className={cs('content')}>
+                <Reading
+                    offsetReading={offset}
+                    limit={limit}
+                    toggleFetching={toggleFetching}
+                    toggleEnding={toggleEnding}
+                />
             </div>
 
-            {showHeadFoot ? <Footer classList={cs({ visible: true })} /> : <Footer classList={cs({ hidden: true })} />}
+            {chapterNumber !== null && chapterList.length > 0 && mangaID ? (
+                showHeadFoot ? (
+                    <Footer
+                        mangaID={mangaID}
+                        chapterID={id}
+                        chapter={chapterNumber}
+                        chapterList={chapterList}
+                        classList={cs({ visible: true })}
+                    />
+                ) : (
+                    <Footer
+                        mangaID={mangaID}
+                        chapterID={id}
+                        chapter={chapterNumber}
+                        chapterList={chapterList}
+                        classList={cs({ hidden: true })}
+                    />
+                )
+            ) : null}
+
+            <MangaItemModal display={displayModal} manga={manga} toogleModal={toggleRef} />
         </div>
     );
 }

@@ -2,10 +2,11 @@
     background-color: var(--background-color);
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
-    overflow-y: auto;
     height: 100vh;
+    overflow-y: auto;
+    width: 100%;
 
     &::-webkit-scrollbar {
         width: 6px;

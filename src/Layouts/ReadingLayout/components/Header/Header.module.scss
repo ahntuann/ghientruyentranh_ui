@@ -14,6 +14,9 @@
     z-index: 1000;
     transition: transform 0.2s ease, opacity 0.2s ease;
     backdrop-filter: blur(10px);
+    display: flex;
+    justify-content: space-between;
+    padding: 0 30px;
 }
 
 .wrapper.hidden {
@@ -26,6 +29,18 @@
     opacity: 1;
 }
 
+.logo {
+    width: calc(0.8 * var(--header-footer-reading-height));
+    height: calc(0.8 * var(--header-footer-reading-height));
+    color: var(--text-color);
+    cursor: pointer;
+    opacity: 0.7;
+
+    &:hover {
+        opacity: 1;
+    }
+}
+
 .manga-info {
     display: flex;
 }
@@ -35,6 +50,7 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    cursor: pointer;
 }
 
 .manga-name,
@@ -43,9 +59,5 @@
 }
 
 .manga-like {
-    position: absolute;
-    top: calc(var(--header-footer-reading-height) / 2);
-    transform: translateY(-50%);
-    right: 20px;
     cursor: pointer;
 }

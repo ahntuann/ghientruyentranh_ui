@@ -41,9 +41,9 @@ function MangaItemModal({ display, manga, toogleModal }) {
         >
             <div className={cs('container')} onClick={handlePropagation}>
                 <div className={cs('manga-section')}>
-                    <MangaSection manga={manga} />
+                    {manga && chapterList && <MangaSection manga={manga} chapterList={chapterList} />}
 
-                    {manga && <ChapterSection chapterList={chapterList} isModalOpen={display} />}
+                    {manga && <ChapterSection manga={manga} chapterList={chapterList} isModalOpen={display} />}
                 </div>
             </div>
         </div>,

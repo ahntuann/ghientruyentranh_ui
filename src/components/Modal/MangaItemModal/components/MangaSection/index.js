@@ -5,11 +5,14 @@ import { faHeart } from '@fortawesome/free-solid-svg-icons';
 import Button from '~/components/Button';
 import style from '../../MangaItemModal.module.scss';
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 const cs = classNames.bind(style);
 
-function MangaSection({ manga }) {
+function MangaSection({ manga, chapterList }) {
     const [mangaType, setMangaType] = useState(() => ['Tu tiên', 'Trinh thám']);
+
+    console.log(chapterList);
 
     return (
         <div className={cs('manga-wrapper')}>
@@ -27,8 +30,19 @@ function MangaSection({ manga }) {
                     </div>
 
                     <div className={cs('manga-action')}>
-                        <Button title="Đọc ngay" light />
-                        <Button title="Chương mới nhất" large light />
+                        <Link
+                            className={cs('action-item')}
+                            to={`doctruyen?id=${chapterList[0]?.chapterId}&mangaId=${manga?.id}`}
+                        >
+                            <Button title="Đọc ngay" light />
+                        </Link>
+
+                        <Link
+                            className={cs('action-item')}
+                            to={`doctruyen?id=${chapterList[chapterList.length - 1]?.chapterId}&mangaId=${manga?.id}`}
+                        >
+                            <Button title="Chương mới nhất" large light />
+                        </Link>
                         <Button title="Thích" light />
                     </div>
 

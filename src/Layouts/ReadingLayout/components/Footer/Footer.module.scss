@@ -35,6 +35,10 @@
     }
 }
 
+.prev-after {
+    color: var(--text-color);
+}
+
 .footer-icon-absolute {
     position: absolute;
     top: calc(var(--header-footer-reading-height) / 2);

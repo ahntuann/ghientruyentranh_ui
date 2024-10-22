@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 
 const cs = classNames.bind(style);
 
-function ChapterSection({ chapterList, isModalOpen }) {
+function ChapterSection({ chapterList, isModalOpen, manga }) {
     const [firstList, setFirstList] = useState([]);
     const [secondList, setSecondList] = useState([]);
 
@@ -48,7 +48,11 @@ function ChapterSection({ chapterList, isModalOpen }) {
             <div className={cs('chapter-list')}>
                 {firstList.length > 0 &&
                     firstList.map((chapter, index) => (
-                        <Link to={`/doctruyen?id=${chapter.chapterId}`} key={index} className={cs('chapter-item')}>
+                        <Link
+                            to={`/doctruyen?id=${chapter.chapterId}&mangaId=${manga?.id}&chapterNumber=${chapter.chapterNumber}`}
+                            key={index}
+                            className={cs('chapter-item')}
+                        >
                             Chương {chapter?.chapterNumber}
                         </Link>
                     ))}
@@ -56,7 +60,11 @@ function ChapterSection({ chapterList, isModalOpen }) {
                 {secondList.length > 0 &&
                     showSecondList &&
                     secondList.map((chapter, index) => (
-                        <Link to={`/doctruyen?id=${chapter.chapterId}`} key={index} className={cs('chapter-item')}>
+                        <Link
+                            to={`/doctruyen?id=${chapter.chapterId}&mangaId=${manga?.id}&chapterNumber=${chapter.chapterNumber}`}
+                            key={index}
+                            className={cs('chapter-item')}
+                        >
                             Chương {chapter?.chapterNumber}
                         </Link>
                     ))}
