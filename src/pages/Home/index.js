@@ -4,14 +4,11 @@ import style from './Home.module.scss';
 import MangaDetail from '~/components/MangaDetail';
 import MangaList from '~/components/MangaList';
 import { useEffect, useState } from 'react';
-import LoginGmail from '~/components/LoginGmail';
 
 const cs = classNames.bind(style);
 
 function Home() {
     const [mangas, setMangas] = useState(() => []);
-
-    console.log(mangas);
 
     useEffect(() => {
         async function fetchManga() {
@@ -29,8 +26,6 @@ function Home() {
             <div className={cs('background')}>
                 <MangaDetail classList={cs('manga-info')} />
             </div>
-
-            <LoginGmail />
 
             {mangas && (
                 <div className={cs('manga-list')}>

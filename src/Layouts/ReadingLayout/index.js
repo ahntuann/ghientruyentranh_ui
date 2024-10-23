@@ -5,7 +5,7 @@ import Footer from './components/Footer';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { Reading } from '~/pages';
 import { useLocation } from 'react-router-dom';
-import { MangaItemModal } from '~/components/Modal';
+import { CommentModal, MangaItemModal } from '~/components/Modal';
 
 const cs = classNames.bind(style);
 
@@ -19,6 +19,7 @@ function ReadingLayout() {
     const [chapterList, setChapterList] = useState([]);
     const [limit] = useState(10);
     const [displayModal, setDisplayModal] = useState(false);
+    const [displayComment, setDisplayComment] = useState(false);
 
     const location = useLocation();
     const params = new URLSearchParams(location.search);
@@ -100,9 +101,26 @@ function ReadingLayout() {
         setDisplayModal((prev) => !prev);
     }, []);
 
+    const toggleComment = useCallback(() => {
+        setDisplayComment((prev) => {
+            return !prev;
+        });
+        setShowHeadFoot((prev) => {
+            return !prev;
+        });
+    }, []);
+
+    const closeModalComment = useCallback(() => {
+        setDisplayComment((prev) => false);
+    }, []);
+
     const toggleRef = useRef();
+    const toggleCommentRef = useRef();
+    const closeCommentRef = useRef();
 
     toggleRef.current = toggleModal;
+    toggleCommentRef.current = toggleComment;
+    closeCommentRef.current = closeModalComment;
 
     return (
         <div className={cs('wrapper')} onScroll={handlScroll} onClick={handlClick}>
@@ -141,6 +159,8 @@ function ReadingLayout() {
                         chapter={chapterNumber}
                         chapterList={chapterList}
                         classList={cs({ visible: true })}
+                        toggleComment={toggleCommentRef}
+                        displayComment={displayComment}
                     />
                 ) : (
                     <Footer
@@ -149,11 +169,21 @@ function ReadingLayout() {
                         chapter={chapterNumber}
                         chapterList={chapterList}
                         classList={cs({ hidden: true })}
+                        toggleComment={toggleCommentRef}
+                        displayComment={displayComment}
                     />
                 )
             ) : null}
 
             <MangaItemModal display={displayModal} manga={manga} toogleModal={toggleRef} />
+
+            <CommentModal
+                chapterID={id}
+                closeModal={closeCommentRef}
+                ontopParent={showHeadFoot}
+                display={displayComment}
+                hide={!displayComment}
+            />
         </div>
     );
 }

@@ -2,13 +2,13 @@ import classNames from 'classnames/bind';
 
 import style from './Footer.module.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowLeftLong, faArrowRightLong, faBars, faCommentDots } from '@fortawesome/free-solid-svg-icons';
+import { faArrowLeftLong, faArrowRightLong, faCommentDots } from '@fortawesome/free-solid-svg-icons';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 
 const cs = classNames.bind(style);
 
-function Footer({ classList, chapterID, mangaID, chapterList, chapter }) {
+function Footer({ classList, chapterID, mangaID, chapterList, chapter, toggleComment }) {
     const location = useLocation();
     const navigate = useNavigate();
 
@@ -54,7 +54,7 @@ function Footer({ classList, chapterID, mangaID, chapterList, chapter }) {
     }, [chapterList, location.search]);
 
     return (
-        <div className={cs('wrapper', classList)}>
+        <div className={cs('wrapper', classList)} onClick={(e) => e.stopPropagation()}>
             <div className={cs('footer-icon')}>
                 {displayPrev && (
                     <Link className={cs('prev-after')} onClick={(event) => handlePrev(event)}>
@@ -71,10 +71,7 @@ function Footer({ classList, chapterID, mangaID, chapterList, chapter }) {
 
             <div className={cs('footer-icon-absolute')}>
                 <div>
-                    <FontAwesomeIcon icon={faBars} />
-                </div>
-                <div>
-                    <FontAwesomeIcon icon={faCommentDots} />
+                    <FontAwesomeIcon icon={faCommentDots} onClick={toggleComment.current} />
                 </div>
             </div>
         </div>

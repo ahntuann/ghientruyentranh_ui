@@ -12,8 +12,6 @@ const cs = classNames.bind(style);
 function MangaSection({ manga, chapterList }) {
     const [mangaType, setMangaType] = useState(() => ['Tu tiên', 'Trinh thám']);
 
-    console.log(chapterList);
-
     return (
         <div className={cs('manga-wrapper')}>
             <div className={cs('manga-info')}>
@@ -32,14 +30,14 @@ function MangaSection({ manga, chapterList }) {
                     <div className={cs('manga-action')}>
                         <Link
                             className={cs('action-item')}
-                            to={`doctruyen?id=${chapterList[0]?.chapterId}&mangaId=${manga?.id}`}
+                            to={`/doctruyen?id=${chapterList[0]?.chapterId}&mangaId=${manga?.id}`}
                         >
                             <Button title="Đọc ngay" light />
                         </Link>
 
                         <Link
                             className={cs('action-item')}
-                            to={`doctruyen?id=${chapterList[chapterList.length - 1]?.chapterId}&mangaId=${manga?.id}`}
+                            to={`/doctruyen?id=${chapterList[chapterList.length - 1]?.chapterId}&mangaId=${manga?.id}`}
                         >
                             <Button title="Chương mới nhất" large light />
                         </Link>

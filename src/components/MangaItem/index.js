@@ -2,7 +2,7 @@ import classNames from 'classnames/bind';
 
 import style from './MangaItem.module.scss';
 import { MangaItemModal } from '../Modal';
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
 const cs = classNames.bind(style);
 
@@ -10,9 +10,9 @@ function MangaItem({ displayMangas }) {
     const [mangaModal, setMangaModal] = useState(() => null);
     const [displayModal, setDisplayModal] = useState(() => false);
 
-    function toggleDisplaModal() {
+    const toggleDisplaModal = useCallback(() => {
         setDisplayModal(!displayModal);
-    }
+    }, []);
 
     const toggleRef = useRef();
 
