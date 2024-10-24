@@ -11,7 +11,7 @@ function MangaItem({ displayMangas }) {
     const [displayModal, setDisplayModal] = useState(() => false);
 
     const toggleDisplaModal = useCallback(() => {
-        setDisplayModal(!displayModal);
+        setDisplayModal((prev) => !prev);
     }, []);
 
     const toggleRef = useRef();

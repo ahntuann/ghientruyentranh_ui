@@ -3,6 +3,7 @@ import classNames from 'classnames/bind';
 import style from './Header.module.scss';
 import { Navbar, Search } from './components';
 import Button from '~/components/Button';
+import { Link } from 'react-router-dom';
 
 const cs = classNames.bind(style);
 
@@ -29,8 +30,12 @@ function Header() {
             <Search />
 
             <div className={cs('header-action')}>
-                <Button className={'search-btn'} solid={true} title={'Đăng ký'} dark={true} />
-                <Button className={'search-btn'} title={'Đăng nhập'} light={true} />
+                <Link to={'/login'} className={cs('login')}>
+                    <Button className={'search-btn'} solid={true} title={'Đăng ký'} dark={true} />
+                </Link>
+                <Link to={'/login'} className={cs('login')}>
+                    <Button className={'search-btn'} title={'Đăng nhập'} light={true} />
+                </Link>
             </div>
         </div>
     );

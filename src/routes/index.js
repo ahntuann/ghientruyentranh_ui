@@ -1,7 +1,7 @@
 import DefaultLayout from '~/Layouts/DefaultLayout';
+import LoginRegisterLayout from '~/Layouts/LoginRegisterLayout';
 import ReadingLayout from '~/Layouts/ReadingLayout';
-import { Home } from '~/pages';
-import Reading from '~/pages/Reading';
+import { Home, LoginRegister, Reading } from '~/pages';
 
 const routes = [
     {
@@ -13,6 +13,11 @@ const routes = [
         component: Reading,
         path: '/doctruyen',
         layout: ReadingLayout,
+    },
+    {
+        component: LoginRegister,
+        path: '/login',
+        layout: LoginRegisterLayout,
     },
 ];
 
