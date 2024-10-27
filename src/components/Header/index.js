@@ -4,10 +4,15 @@ import style from './Header.module.scss';
 import { Navbar, Search } from './components';
 import Button from '~/components/Button';
 import { Link } from 'react-router-dom';
+import { useState } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 
 const cs = classNames.bind(style);
 
 function Header() {
+    const [isLogIn, setIsLogIn] = useState(localStorage.getItem('isLogIn'));
+
     return (
         <div className={cs('wrapper')}>
             <div className={cs('logo')}>
@@ -29,14 +34,27 @@ function Header() {
 
             <Search />
 
-            <div className={cs('header-action')}>
-                <Link to={'/login'} className={cs('login')}>
-                    <Button className={'search-btn'} solid={true} title={'Đăng ký'} dark={true} />
-                </Link>
-                <Link to={'/login'} className={cs('login')}>
-                    <Button className={'search-btn'} title={'Đăng nhập'} light={true} />
-                </Link>
-            </div>
+            {!isLogIn ? (
+                <div className={cs('header-action')}>
+                    <Link to={'/login'} className={cs('login')}>
+                        <Button className={'search-btn'} solid={true} title={'Đăng ký'} dark={true} />
+                    </Link>
+                    <Link to={'/login'} className={cs('login')}>
+                        <Button className={'search-btn'} title={'Đăng nhập'} light={true} />
+                    </Link>
+                </div>
+            ) : (
+                <FontAwesomeIcon
+                    icon={faRightFromBracket}
+                    onClick={() => {
+                        localStorage.removeItem('isLogIn');
+                        localStorage.removeItem('user');
+                        localStorage.removeItem('role');
+
+                        setIsLogIn(false);
+                    }}
+                />
+            )}
         </div>
     );
 }

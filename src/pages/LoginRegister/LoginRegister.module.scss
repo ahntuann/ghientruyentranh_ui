@@ -191,3 +191,29 @@
 .wrapper.active .toggle-right {
     transform: translateX(200%);
 }
+
+.verify-code {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.verify-input {
+    flex-grow: 1;
+}
+
+.verify-btn {
+    background-color: #000000;
+    color: #fff;
+    width: 170px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 7px 0;
+    font-size: 1.3rem;
+    border-radius: 10px;
+    margin-left: 20px;
+    font-weight: 600;
+    cursor: pointer;
+}

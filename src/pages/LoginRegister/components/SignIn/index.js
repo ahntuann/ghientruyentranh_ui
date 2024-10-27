@@ -2,10 +2,53 @@ import classNames from 'classnames/bind';
 import style from '../../LoginRegister.module.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFacebookF, faGithub, faGooglePlusG, faLinkedinIn } from '@fortawesome/free-brands-svg-icons';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const cs = classNames.bind(style);
 
 function SignIn() {
+    const [name, setName] = useState('');
+    const [pass, setPass] = useState('');
+
+    const [isFillName, setIsFillName] = useState(true);
+    const [isFillPass, setIsFillPass] = useState(true);
+
+    const navigate = useNavigate();
+
+    async function handleVerifyForm(e) {
+        e.preventDefault();
+
+        setIsFillName(name !== '');
+        setIsFillPass(pass !== '');
+
+        if (name !== '' && pass !== '')
+            try {
+                const res = await fetch(`http://localhost:8080/testmaven/login`, {
+                    method: 'post',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: JSON.stringify({
+                        name: name,
+                        password: pass,
+                    }),
+                });
+
+                const result = await res.json();
+
+                console.log(result);
+
+                if (result.success) {
+                    localStorage.setItem('isLogIn', true);
+                    localStorage.setItem('user', result.user);
+                    localStorage.setItem('role', result.role);
+
+                    navigate('/');
+                }
+            } catch (error) {}
+    }
+
     return (
         <div className={cs('form-container', 'sign-in')}>
             <form>
@@ -26,10 +69,32 @@ function SignIn() {
                     </a>
                 </div>
                 <span>or use your email password</span>
-                <input type="email" placeholder="Email" autoComplete="email" />
-                <input type="password" placeholder="Password" autoComplete="current-password" />
+                <input
+                    type="email"
+                    placeholder="Email"
+                    autoComplete="email"
+                    value={name}
+                    onChange={(e) => {
+                        setName(e.target.value);
+                        setIsFillName(true);
+                    }}
+                />
+                {!isFillName && <span>Vui lòng nhập user name hoặc email của bạn.</span>}
+
+                <input
+                    type="password"
+                    placeholder="Password"
+                    autoComplete="current-password"
+                    value={pass}
+                    onChange={(e) => {
+                        setPass(e.target.value);
+                        setIsFillPass(true);
+                    }}
+                />
+                {!isFillPass && <span>Vui lòng nhập mật khẩu.</span>}
+
                 <a href="#">Forget your password?</a>
-                <button>Sign In</button>
+                <button onClick={(e) => handleVerifyForm(e)}>Sign In</button>
             </form>
         </div>
     );
