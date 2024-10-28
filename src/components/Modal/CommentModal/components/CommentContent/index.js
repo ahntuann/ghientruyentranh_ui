@@ -1,21 +1,17 @@
 import classNames from 'classnames/bind';
 
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 
 import style from '../../CommentModal.module.scss';
 import defaultAvatar from '~/components/img/avt_default.jpg';
 
 const cs = classNames.bind(style);
 
-function CommentContent({ chapterID }) {
-    const [commentList, setCommentList] = useState([]);
-    const [finalCommentList, setFinalCommentList] = useState([]);
-
+function CommentContent({ chapterID, commentList, setCommentList, finalCommentList, setFinalCommentList }) {
     useEffect(() => {
         async function fetchComment() {
             const res = await fetch(`http://localhost:8080/testmaven/comments?chapterID=${chapterID}`);
             const comments = await res.json();
-
             setCommentList(comments);
         }
 
@@ -50,6 +46,10 @@ function CommentContent({ chapterID }) {
             fetchUsers();
         } catch (error) {}
     }, [commentList]);
+
+    useEffect(() => {
+        console.log(finalCommentList);
+    }, [finalCommentList]);
 
     return (
         <div className={cs('content-wrapper')}>

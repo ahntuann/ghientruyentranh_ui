@@ -13,6 +13,25 @@ const cs = classNames.bind(style);
 function Header() {
     const [isLogIn, setIsLogIn] = useState(localStorage.getItem('isLogIn'));
 
+    async function handleLogout() {
+        localStorage.removeItem('isLogIn');
+        localStorage.removeItem('userID');
+        localStorage.removeItem('role');
+        localStorage.removeItem('user');
+
+        setIsLogIn(false);
+
+        try {
+            const res = await fetch(`http://localhost:8080/testmaven/logout`, {
+                method: 'post',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                credentials: 'include',
+            });
+        } catch (error) {}
+    }
+
     return (
         <div className={cs('wrapper')}>
             <div className={cs('logo')}>
@@ -45,14 +64,9 @@ function Header() {
                 </div>
             ) : (
                 <FontAwesomeIcon
+                    className={cs('logout-btn')}
                     icon={faRightFromBracket}
-                    onClick={() => {
-                        localStorage.removeItem('isLogIn');
-                        localStorage.removeItem('user');
-                        localStorage.removeItem('role');
-
-                        setIsLogIn(false);
-                    }}
+                    onClick={() => handleLogout()}
                 />
             )}
         </div>

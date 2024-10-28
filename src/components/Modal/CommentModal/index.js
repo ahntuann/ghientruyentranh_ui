@@ -5,11 +5,15 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faClose } from '@fortawesome/free-solid-svg-icons';
 import CommentContent from './components/CommentContent';
 import CommentInput from './components/CommentInput';
+import { useState } from 'react';
 
 const cs = classNames.bind(style);
 
-function CommentModal({ chapterID, closeModal, hide, display, ontopParent }) {
+function CommentModal({ mangaID, chapterID, closeModal, hide, display, ontopParent }) {
     const classList = cs('wrapper', { ontopParent, hide, display });
+
+    const [commentList, setCommentList] = useState([]);
+    const [finalCommentList, setFinalCommentList] = useState([]);
 
     return (
         <div className={classList}>
@@ -21,9 +25,20 @@ function CommentModal({ chapterID, closeModal, hide, display, ontopParent }) {
                 </div>
             </div>
 
-            <CommentContent chapterID={chapterID} />
+            <CommentContent
+                chapterID={chapterID}
+                commentList={commentList}
+                setCommentList={setCommentList}
+                finalCommentList={finalCommentList}
+                setFinalCommentList={setFinalCommentList}
+            />
 
-            <CommentInput chapterID={chapterID} />
+            <CommentInput
+                chapterID={chapterID}
+                mangaID={mangaID}
+                finalCommentList={finalCommentList}
+                setFinalCommentList={setFinalCommentList}
+            />
         </div>
     );
 }

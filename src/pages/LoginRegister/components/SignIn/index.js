@@ -33,16 +33,16 @@ function SignIn() {
                         name: name,
                         password: pass,
                     }),
+                    credentials: 'include',
                 });
 
                 const result = await res.json();
 
-                console.log(result);
-
                 if (result.success) {
                     localStorage.setItem('isLogIn', true);
-                    localStorage.setItem('user', result.user);
+                    localStorage.setItem('userID', result.user['user_id']);
                     localStorage.setItem('role', result.role);
+                    localStorage.setItem('user', JSON.stringify(result.user));
 
                     navigate('/');
                 }

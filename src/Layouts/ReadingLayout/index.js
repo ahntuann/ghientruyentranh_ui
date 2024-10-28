@@ -178,6 +178,7 @@ function ReadingLayout() {
             <MangaItemModal display={displayModal} manga={manga} toogleModal={toggleRef} />
 
             <CommentModal
+                mangaID={mangaID}
                 chapterID={id}
                 closeModal={closeCommentRef}
                 ontopParent={showHeadFoot}
